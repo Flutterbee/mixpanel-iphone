@@ -343,6 +343,7 @@
  @param distinctId string that uniquely identifies the current user
  */
 - (void)identify:(NSString *)distinctId;
+- (void)identify:(NSString *)distinctId peopleDistinctId:(NSString *)peopleDistinctId;
 
 /*!
  @method
