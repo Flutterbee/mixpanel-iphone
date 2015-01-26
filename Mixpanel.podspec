@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = 'Apache License, Version 2.0'
   s.author       = { 'Mixpanel, Inc' => 'support@mixpanel.com' }
   s.platform     = :ios, '6.0'
-  s.source       = { :git => 'https://github.com/mixpanel/mixpanel-iphone.git', :tag => "v#{s.version}" }
+  s.source       = { :git => 'https://github.com/mixpanel/mixpanel-iphone.git', :tag => "tny_v#{s.version}" }
   s.source_files  = 'Mixpanel/**/*.{m,h}'
   s.private_header_files =  'Mixpanel/Library/**/*.h'
   s.resources 	 = ['Mixpanel/**/*.{png,storyboard}']
