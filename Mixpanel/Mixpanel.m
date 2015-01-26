@@ -497,9 +497,6 @@ static Mixpanel *sharedInstance = nil;
         MixpanelDebug(@"%@ cannot identify blank distinct id: %@", self, distinctId);
         return;
     }
-    if (peopleDistinctId == nil || peopleDistinctId.length == 0) {
-        return;
-    }
     dispatch_async(self.serialQueue, ^{
         self.distinctId = distinctId;
         self.people.distinctId = peopleDistinctId;
