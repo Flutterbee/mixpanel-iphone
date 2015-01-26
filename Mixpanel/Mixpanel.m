@@ -486,19 +486,26 @@ static Mixpanel *sharedInstance = nil;
     return distinctId;
 }
 
-
 - (void)identify:(NSString *)distinctId
+{
+    [self identify:distinctId peopleDistinctId:distinctId];
+}
+
+- (void)identify:(NSString *)distinctId peopleDistinctId:(NSString *)peopleDistinctId
 {
     if (distinctId == nil || distinctId.length == 0) {
         MixpanelDebug(@"%@ cannot identify blank distinct id: %@", self, distinctId);
         return;
     }
+    if (peopleDistinctId == nil || peopleDistinctId.length == 0) {
+        return;
+    }
     dispatch_async(self.serialQueue, ^{
         self.distinctId = distinctId;
-        self.people.distinctId = distinctId;
+        self.people.distinctId = peopleDistinctId;
         if ([self.people.unidentifiedQueue count] > 0) {
             for (NSMutableDictionary *r in self.people.unidentifiedQueue) {
-                r[@"$distinct_id"] = distinctId;
+                r[@"$distinct_id"] = peopleDistinctId;
                 [self.peopleQueue addObject:r];
             }
             [self.people.unidentifiedQueue removeAllObjects];
