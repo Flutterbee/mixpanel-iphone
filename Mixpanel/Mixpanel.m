@@ -500,13 +500,15 @@ static Mixpanel *sharedInstance = nil;
     dispatch_async(self.serialQueue, ^{
         self.distinctId = distinctId;
         self.people.distinctId = peopleDistinctId;
-        if ([self.people.unidentifiedQueue count] > 0) {
-            for (NSMutableDictionary *r in self.people.unidentifiedQueue) {
-                r[@"$distinct_id"] = peopleDistinctId;
-                [self.peopleQueue addObject:r];
+        if (peopleDistinctId) {
+            if ([self.people.unidentifiedQueue count] > 0) {
+                for (NSMutableDictionary *r in self.people.unidentifiedQueue) {
+                    r[@"$distinct_id"] = peopleDistinctId;
+                    [self.peopleQueue addObject:r];
+                }
+                [self.people.unidentifiedQueue removeAllObjects];
+                [self archivePeople];
             }
-            [self.people.unidentifiedQueue removeAllObjects];
-            [self archivePeople];
         }
         if ([Mixpanel inBackground]) {
             [self archiveProperties];
